@@ -55,21 +55,6 @@ class DispatchServer(object):
         return
       self.delivery_drone.recharge()
 
-# 2.  In dispatch_server.py, implement the function:
-
-#         build_trip(self, zone)
-
-#     This function returns a list of orders to be delivered on the next drone trip.
-#     The returned list of orders should contain as many of the oldest unpackaged
-#     orders in the zone as possible without exceeding the drone's range. Once an
-#     order exceeds the drone's range, any remaining capacity should be filled with
-#     other orders destined for this same zone, from heaviest to lightest
-#     (regardless of when the order was placed).
-
-#     Make use of the payload_test_drone to simulate trips to determine whether the
-#     delivery_drone will be able to accommodate an order. Remember to remove all
-#     orders from the payload_test_drone after the trip is built!
-
 
   def build_trip(self, zone):
     """
@@ -79,19 +64,6 @@ class DispatchServer(object):
     destined for this same zone from heaviest to lightest (regardless of when
     the order was placed).
     """
-    zone_orders = []
-    for order in self.unpackaged_orders:
-          if order.get_delivery_zone() == zone:
-                zone_orders.append(order)
-    
-    ans = []
-    for i in range(len(zone_orders)):
-          zone_order = zone_orders[i]
-          if self.payload_test_drone.simulate_trip_with_added_order(zone_order, i):
-                ans.append(zone_order)
-          else:
-              break
-    return ans
 
   def build_most_optimal_trip(self):
     """Returns the most optimal Trip."""
